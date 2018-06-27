@@ -2553,18 +2553,60 @@ a:focus {
 
 /* *********  timeline  **************************** */
 
-ul.timeline li {
+.timeline {
   position: relative;
-  border-bottom: 1px solid #e8e8e8;
-  clear: both;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-flow: column nowrap;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e8e8e8;
+    width: 3px;
+  }
+  &__item {
+    $this: &;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    flex-flow: row nowrap;
+    &-inner {
+      position: relative;
+      flex: 0 0 50%;
+      padding: 30px;
+      max-width: 50%;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 37px;
+        right: 0;
+        transform: translateX(50%);
+        display: block;
+        width: 14px;
+        height: 14px;
+        border: 3px solid #d2d3d2;
+        border-radius: 14px;
+        background: #f9f9f9;
+      }
+    }
+    &:nth-child(even) {
+      justify-content: flex-end;
+      #{$this}-inner {
+        &::before {
+          left: 0;
+          right: auto;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
 }
-.timeline .block {
-  margin: 0;
-  border-left: 3px solid #e8e8e8;
-  overflow: visible;
-  padding: 10px 15px;
-  margin-left: 105px;
-}
+
 .timeline.widget {
   min-width: 0;
   max-width: inherit;
@@ -2572,17 +2614,14 @@ ul.timeline li {
 .timeline.widget .block {
   margin-left: 5px;
 }
-.timeline .tags {
-  position: absolute;
-  top: 15px;
-  left: 0;
-  width: 84px;
-}
 .timeline .tag {
-  display: block;
-  height: 30px;
+  position: relative;
+  display: inline-block;
   font-size: 13px;
   padding: 8px;
+  padding-bottom: 9px;
+  max-width: 100%;
+  margin-bottom: 15px;
 }
 .timeline .tag span {
   display: block;
@@ -2613,18 +2652,7 @@ ul.timeline li {
   position: relative;
   font-size: 16px;
   margin: 0;
-}
-.timeline h2.title:before {
-  content: "";
-  position: absolute;
-  left: -23px;
-  top: 3px;
-  display: block;
-  width: 14px;
-  height: 14px;
-  border: 3px solid #d2d3d2;
-  border-radius: 14px;
-  background: #f9f9f9;
+  line-height: 1.4;
 }
 .timeline .byline {
   padding: .25em 0;
